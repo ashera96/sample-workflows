@@ -104,7 +104,7 @@ jobs:
           key: ${{ runner.os }}-m2
           restore-keys: ${{ runner.os }}-m2
       - name: Build product-apim without tests
-        run: mvn clean install -Dcarbon.apimgt.version=${{ needs.build-carbon-apimgt.outputs.carbon-apimgt-version }} -Dcarbon.apimgt.ui.version=${{ needs.build-carbon-apimgt.outputs.apim-apps-version }} --file product-apim/pom.xml -Dmaven.test.skip=true --projects '!org.wso2.am:org.wso2.carbon.am.integration.benchmark.test'
+        run: mvn clean install -Dcarbon.apimgt.version=${{ needs.build-carbon-apimgt.outputs.carbon-apimgt-version }} -Dcarbon.apimgt.ui.version=${{ needs.build-apim-apps.outputs.apim-apps-version }} --file product-apim/pom.xml -Dmaven.test.skip=true --projects '!org.wso2.am:org.wso2.carbon.am.integration.benchmark.test'
       - name: Set product.apim.version
         id: set-product-apim-version
         run: echo "product-apim-version=`mvn help:evaluate --file product-apim/pom.xml -Dexpression=project.version -q -DforceStdout`" >> $GITHUB_OUTPUT
@@ -152,7 +152,7 @@ jobs:
         run: |
           mkdir product-apim/modules/distribution/product/target
           cp wso2am-${{ needs.build-product-apim.outputs.product-apim-version }}.zip product-apim/modules/distribution/product/target/
-          mvn clean install -Dcarbon.apimgt.version=${{ needs.build-carbon-apimgt.outputs.carbon-apimgt-version }} -Dcarbon.apimgt.ui.version=${{ needs.build-carbon-apimgt.outputs.apim-apps-version }} --file product-apim/modules/integration/tests-integration/pom.xml -fae
+          mvn clean install -Dcarbon.apimgt.version=${{ needs.build-carbon-apimgt.outputs.carbon-apimgt-version }} -Dcarbon.apimgt.ui.version=${{ needs.build-apim-apps.outputs.apim-apps-version }} --file product-apim/modules/integration/tests-integration/pom.xml -fae
         env:
           PRODUCT_APIM_TEST_GROUPS: ${{ matrix.segment }}
   # run-ui-test:
