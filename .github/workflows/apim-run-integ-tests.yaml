@@ -79,7 +79,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       product-apim-version: ${{ steps.set-product-apim-version.outputs.product-apim-version }}
-    needs: [build-carbon-apimgt, build-product-apim]
+    needs: [build-carbon-apimgt, build-apim-apps]
     steps:
       - name: Checkout product-apim
         uses: actions/checkout@v3
